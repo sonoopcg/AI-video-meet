@@ -1,0 +1,123 @@
+<!-- =====================================
+Page 2: Organise Meeting (organise.html)
+======================================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organise Meeting | AI Video Meet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white shadow-md p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold text-blue-700">Organise Meeting</h1>
+      <a href="Zoom_Homepage.html" class="text-sm text-blue-600 hover:underline">← Back to Home</a>
+    </div>
+  </header>
+
+  <!-- Main Section -->
+  <main class="max-w-5xl mx-auto py-12 px-6 grid grid-cols-1 md:grid-cols-2 gap-10">
+    <!-- Create Group Section -->
+    <section class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-xl font-semibold text-blue-700 mb-4">Create Group</h2>
+      <form id="createForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium">Group Name</label>
+          <input type="text" class="w-full border rounded px-3 py-2" placeholder="Enter group name" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Meeting Theme/Topic</label>
+          <input type="text" class="w-full border rounded px-3 py-2" placeholder="e.g., AI Discussion" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Preferred Language</label>
+          <select class="w-full border rounded px-3 py-2">
+            <option>English</option>
+            <option>Hindi</option>
+            <option>Bhojpuri</option>
+            <option>Mathili</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Group Capacity</label>
+          <input type="number" class="w-full border rounded px-3 py-2" placeholder="Maximum number of members" min="2" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Meeting Type</label>
+          <div class="flex items-center space-x-4">
+            <label class="flex items-center">
+              <input type="radio" name="privacy" value="public" class="mr-2" checked>
+              Public
+            </label>
+            <label class="flex items-center">
+              <input type="radio" name="privacy" value="private" class="mr-2">
+              Private
+            </label>
+          </div>
+        </div>
+        <div id="meetingKeyField" class="hidden">
+          <label class="block text-sm font-medium">Secret Meeting Key</label>
+          <input id="generatedKey" type="text" readonly class="w-full border bg-gray-100 rounded px-3 py-2">
+        </div>
+        <a href="./meeting.html"><button type="button" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Create Group</button></a>
+      </form>
+    </section>
+
+    <!-- Join Group Section -->
+    <section class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-xl font-semibold text-green-700 mb-4">Join Group</h2>
+      <form class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium">Username</label>
+          <input type="text" class="w-full border rounded px-3 py-2" placeholder="Enter your name" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Group Name</label>
+          <input type="text" class="w-full border rounded px-3 py-2" placeholder="Enter the group name to join" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Meeting Key (if private)</label>
+          <input type="text" class="w-full border rounded px-3 py-2" placeholder="Optional for public groups">
+        </div>
+        <br>
+        <a href="./meeting.html"> <button type="button" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Join Group</button></a>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t py-6 text-center text-sm text-gray-500">
+    <p>© 2025 AI Video Meet. All rights reserved.</p>
+    <p>Designed for smarter collaboration experiences.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    const createForm = document.getElementById("createForm");
+    const keyField = document.getElementById("meetingKeyField");
+    const generatedKey = document.getElementById("generatedKey");
+
+    // Listen for radio change to toggle key field
+    createForm.querySelectorAll('input[name="privacy"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        if (e.target.value === 'private') {
+          const key = Math.random().toString(36).substr(2, 10).toUpperCase();
+          generatedKey.value = key;
+          keyField.classList.remove("hidden");
+        } else {
+          generatedKey.value = "";
+          keyField.classList.add("hidden");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
